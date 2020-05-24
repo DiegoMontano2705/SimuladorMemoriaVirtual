@@ -13,12 +13,36 @@ Integrantes: Diego Montaño, Jose Gonzalez, Eugenio Gonzalez, Rafael Martinez
 using namespace std;
 
 int main(){
-    /*
+
+    /* Variables
     *
     * 
-    * Code
-    * 
-    * 
     */
+   string sNombreArchivo;
+   LecturaArchivo Datos;
+
+    /* 
+    * Code 
+    */
+
+   cout << " ---Simulador de Manejador de Memoria Virtual--- " << endl;
+   cout << endl;
+   cout << "Ingresar nombre del archivo con los datos (Incluir extension) : ";
+   cin >> sNombreArchivo;
+   cout << "Verificando existencia del archivo ..." << endl;
+
+    // Verificación del nombre del archivo
+   while(!Datos.VerificarExistenciaArchivo(sNombreArchivo)){
+       cout << "!ERROR! Archivo no existe o no fue encontrado" << endl;
+       cout << "Ingresar nombre del archivo con los datos (Incluir extension) : ";
+       cin >> sNombreArchivo;
+       cout << "Verificando existencia del archivo ..." << endl;
+   };
+
+    cout << "Archivo encontrado" << endl;
+    Datos.setNombreArchivo(sNombreArchivo);
+    Datos.CargarDatos();
+
+
     return 0;
 }
