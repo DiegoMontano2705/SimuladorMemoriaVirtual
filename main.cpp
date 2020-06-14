@@ -10,34 +10,14 @@ Integrantes: Diego Montaño, Jose Gonzalez, Eugenio Gonzalez, Rafael Martinez
 
 #include <iostream>
 #include "LecturaArchivo.h"
-<<<<<<< HEAD
 #include "Controlador.h"
-=======
-//#include "Controller.h"
-
->>>>>>> de4bb4d3afdfa63da5236e2d343fc13e326b01d5
 using namespace std;
 
 int main(){
-
-<<<<<<< HEAD
-    /* Variables
-    *
-    * 
-    */
    
    string sNombreArchivo;
    LecturaArchivo Datos;
    Controlador controlador;
-    /* 
-    * Code 
-    */
-=======
->>>>>>> de4bb4d3afdfa63da5236e2d343fc13e326b01d5
-
-    string sNombreArchivo;
-    LecturaArchivo Datos;
-    //Controller C;
   
    cout << " ---Simulador de Manejador de Memoria Virtual--- " << endl;
    cout << endl;
