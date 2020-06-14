@@ -10,6 +10,7 @@ Integrantes: Diego Montaño, Jose Gonzalez, Eugenio Gonzalez, Rafael Martinez
 
 #include <iostream>
 #include "LecturaArchivo.h"
+#include "Controlador.h"
 using namespace std;
 
 int main(){
@@ -18,9 +19,10 @@ int main(){
     *
     * 
     */
+   
    string sNombreArchivo;
    LecturaArchivo Datos;
-
+   Controlador controlador;
     /* 
     * Code 
     */
@@ -42,6 +44,8 @@ int main(){
     cout << "Archivo encontrado" << endl;
     Datos.setNombreArchivo(sNombreArchivo);
     Datos.CargarDatos();
+
+
 
 
     return 0;
