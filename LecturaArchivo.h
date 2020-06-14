@@ -16,6 +16,7 @@ class LecturaArchivo{
         inline vector<string> getDatos(){
             return vDatos;
         }
+  
         //Lee datos del archivo de texto y los guarda en un vector
         inline void LeerArchivo(string sArchivo){
             ifstream ifArchivo;
@@ -25,7 +26,13 @@ class LecturaArchivo{
                 vDatos.push_back(sLinea);
             }
         }
-        //Checar exitencia de archivo
+  
+        /* Método VerificarExistenciaArchivo
+        *  Verifica que exista archivo de texto con el nombre dado y regresa un valor booleano
+        *  dependiendo del resultado
+        *  Input: String sNombreArch
+        *  Output: bool (false = No existe archivo, true = Existe el archivo)
+        */ 
         inline bool VerificarExistenciaArchivo(string sNombreArch){
             ifstream ifArchivo(sNombreArch);
             if(ifArchivo.fail()){
@@ -34,5 +41,6 @@ class LecturaArchivo{
                 return true;
             }
         }
+
 };
 #endif //   LECTURAARCHIVO_H

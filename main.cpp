@@ -16,26 +16,29 @@ using namespace std;
 
 int main(){
 
-    string sNombreArchivo;
-    LecturaArchivo Archivo;
-    //Controller C;
-    
-    // Bienvenida del programa al usuario
-    cout << "-------Simulador de Memoria Virtual-------" << endl;
-    cout << "Favor de ingresar  nombre de archivo con instrucciones: " ;
-    cin >> sNombreArchivo;
 
-    if(!Archivo.VerificarExistenciaArchivo(sNombreArchivo)){
-        cout << "ERROR ARCHIVO NO EXISTE" << endl;
-        cout << "Favor de ingresar  nombre de archivo con instrucciones : " ;
-        cin >> sNombreArchivo;
-    }
-    Archivo.LeerArchivo(sNombreArchivo);
+    string sNombreArchivo;
+    LecturaArchivo Datos;
+    //Controller C;
+  
+   cout << " ---Simulador de Manejador de Memoria Virtual--- " << endl;
+   cout << endl;
+   cout << "Ingresar nombre del archivo con los datos (Incluir extension) : ";
+   cin >> sNombreArchivo;
+   cout << "Verificando existencia del archivo ..." << endl;
+
+    // Verificación del nombre del archivo
+   while(!Datos.VerificarExistenciaArchivo(sNombreArchivo)){
+       cout << "!ERROR! Archivo no existe o no fue encontrado" << endl;
+       cout << "Ingresar nombre del archivo con los datos (Incluir extension) : ";
+       cin >> sNombreArchivo;
+       cout << "Verificando existencia del archivo ..." << endl;
+   };
+
+    cout << "Archivo encontrado" << endl;  
+    Datos.LeerArchivo(sNombreArchivo);
 
     //C.setDatos(Archivo.getDatos());
-    
-
-
 
     return 0;
 }
