@@ -10,21 +10,17 @@ Integrantes: Diego Montaño, Jose Gonzalez, Eugenio Gonzalez, Rafael Martinez
 
 #include <iostream>
 #include "LecturaArchivo.h"
+//#include "Controller.h"
+
 using namespace std;
 
 int main(){
 
-    /* Variables
-    *
-    * 
-    */
-   string sNombreArchivo;
-   LecturaArchivo Datos;
 
-    /* 
-    * Code 
-    */
-
+    string sNombreArchivo;
+    LecturaArchivo Datos;
+    //Controller C;
+  
    cout << " ---Simulador de Manejador de Memoria Virtual--- " << endl;
    cout << endl;
    cout << "Ingresar nombre del archivo con los datos (Incluir extension) : ";
@@ -39,10 +35,10 @@ int main(){
        cout << "Verificando existencia del archivo ..." << endl;
    };
 
-    cout << "Archivo encontrado" << endl;
-    Datos.setNombreArchivo(sNombreArchivo);
-    Datos.CargarDatos();
+    cout << "Archivo encontrado" << endl;  
+    Datos.LeerArchivo(sNombreArchivo);
 
+    //C.setDatos(Archivo.getDatos());
 
     return 0;
 }

@@ -2,40 +2,31 @@
 #define LECTURAARCHIVO_H
 #include <iostream>
 #include <fstream>
+#include <vector>
 using namespace std;
 
 class LecturaArchivo{
     private:
-        string sNombreArchivo;
-
+    vector<string> vDatos;
+    string sLinea;
     public:
-        // Constructor
         inline LecturaArchivo(){
         }
 
-        // Getters y Setters
-
-        inline void setNombreArchivo(string sNA){
-            sNombreArchivo = sNA;
+        inline vector<string> getDatos(){
+            return vDatos;
         }
-        inline string getNombreArchivo(){
-            return sNombreArchivo;
-        }
-
-
-        /* Método CargarDatos
-        *  Leer los datos del archivo recibido y guarda los valores correspondientes
-        *  Input: 
-        *  Output:
-        */ 
-        inline void CargarDatos(){
-
-            ifstream ifArchivo(sNombreArchivo);
+  
+        //Lee datos del archivo de texto y los guarda en un vector
+        inline void LeerArchivo(string sArchivo){
+            ifstream ifArchivo;
+            ifArchivo.open(sArchivo);
             while(!ifArchivo.eof()){
-                
+                getline(ifArchivo,sLinea);
+                vDatos.push_back(sLinea);
             }
         }
-
+  
         /* Método VerificarExistenciaArchivo
         *  Verifica que exista archivo de texto con el nombre dado y regresa un valor booleano
         *  dependiendo del resultado
@@ -51,8 +42,5 @@ class LecturaArchivo{
             }
         }
 
-
 };
-
-
 #endif //   LECTURAARCHIVO_H
