@@ -10,15 +10,32 @@ Integrantes: Diego Montaño, Jose Gonzalez, Eugenio Gonzalez, Rafael Martinez
 
 #include <iostream>
 #include "LecturaArchivo.h"
+//#include "Controller.h"
+
 using namespace std;
 
 int main(){
-    /*
-    *
-    * 
-    * Code
-    * 
-    * 
-    */
+
+    string sNombreArchivo;
+    LecturaArchivo Archivo;
+    //Controller C;
+    
+    // Bienvenida del programa al usuario
+    cout << "-------Simulador de Memoria Virtual-------" << endl;
+    cout << "Favor de ingresar  nombre de archivo con instrucciones: " ;
+    cin >> sNombreArchivo;
+
+    if(!Archivo.VerificarExistenciaArchivo(sNombreArchivo)){
+        cout << "ERROR ARCHIVO NO EXISTE" << endl;
+        cout << "Favor de ingresar  nombre de archivo con instrucciones : " ;
+        cin >> sNombreArchivo;
+    }
+    Archivo.LeerArchivo(sNombreArchivo);
+
+    //C.setDatos(Archivo.getDatos());
+    
+
+
+
     return 0;
 }
