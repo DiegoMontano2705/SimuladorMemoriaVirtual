@@ -19,7 +19,7 @@ public:
     
 private:
     int memoria[2048];
-}
+};
 
 
 

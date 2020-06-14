@@ -18,6 +18,6 @@ public:
     
 private:
     int memoria[4096];
-}
+};
 
 #endif /* VirtualMemory_h */
