@@ -9,6 +9,7 @@
 #include "Proceso.h"
 #include "TablaPaginacion.h"
 #include "Queue.h" 
+#include <math.h>
 using namespace std;
 
 class Controlador{
@@ -104,7 +105,7 @@ class Controlador{
                 // Final del numero
                 ePos = subs.find_first_of(' ');
                 // Guardar substring
-                cout << "Check" << endl;
+                //cout << "Check" << endl;
                 temp = subs.substr(0,ePos);
                 // Meter a parametros
                 parametros.push_back(stoi(temp));
