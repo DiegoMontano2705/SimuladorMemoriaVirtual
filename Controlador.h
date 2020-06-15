@@ -5,7 +5,6 @@
 #include <map>
 #include "RealMemory.h"
 #include "VirtualMemory.h"
-#include "Status.h"
 #include "Proceso.h"
 #include "TablaPaginacion.h"
 #include "Queue.h" 
@@ -34,7 +33,7 @@ class Controlador{
         Queue lru;
         double CargaPagina = 1.0, Swap = 1.0, dAccesoPaginaRM = 0.1,
         dDisponiblePaginaRM = 0.1, dDisponiblePaginaVM = 0.1;
-        int TamañoPagina = 16;
+        int tamanoPagina = 16;
 
     public:
         
@@ -322,7 +321,7 @@ class Controlador{
 
                     if(d > historiaProceso_FIFO[p].getBytes() || d < 0){
                         
-                            int paginaNum = d / TamañoPagina;
+                            int paginaNum = d / tamanoPagina;
 
                             Pagina pag(p, paginaNum);
                         if(!TP_FIFO.WhereAmI(pag)) { 
@@ -346,7 +345,7 @@ class Controlador{
 
                     if(d > historiaProceso_LRU[p].getBytes() || d < 0){
                         
-                            int paginaNum = d / TamañoPagina;
+                            int paginaNum = d / tamanoPagina;
 
                             Pagina pag(p, paginaNum);
                             if(!TP_LRU.WhereAmI(pag)) { 
@@ -439,9 +438,6 @@ void F(){
     
         /*turnaround time / turnaround promedio / fallos de página / # total de operaciones swap.*/
          
-         //Status status;
-         //status.addStringResult("Reporte de Salida");
-         //status.addStringResult("Turn around de procesos:");
          cout << "Turn around de procesos con FIFO:" << endl;
          double PromedioTurnAround_FIFO = 0;
          for(auto it = historiaProceso_FIFO.begin(); it != historiaProceso_FIFO.end(); it++) {
@@ -466,9 +462,6 @@ void F(){
    
         /*turnaround time / turnaround promedio / fallos de página / # total de operaciones swap.*/
          
-         //Status status;
-         //status.addStringResult("Reporte de Salida"); 
-         //status.addStringResult("Turn around de procesos:");
          cout << "Turn around de procesos con LRU:" << endl;
          // Initialize average turn around value
          double PromedioTurnAround_LRU = 0;
@@ -491,7 +484,6 @@ void F(){
         cout << "Promedio Turnaround Time: " << to_string(PromedioTurnAround_LRU) << endl;
 
          cout << "Cantidad de operaciones Swap In Swap Ou: " << to_string(totalSwaps_LRU) << "\n\n" <<endl;
-
     
 }
 
