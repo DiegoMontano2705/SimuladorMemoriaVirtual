@@ -16,21 +16,9 @@ using namespace std;
 
 int main(){
 
-    /* Variables
-    *
-    * 
-    */
-   
    string sNombreArchivo;
    LecturaArchivo Datos;
    Controlador controlador;
-    /* 
-    * Code 
-    */
-
-
-    string sNombreArchivo;
-    LecturaArchivo Datos;
   
    cout << " ---Simulador de Manejador de Memoria Virtual--- " << endl;
    cout << endl;
@@ -49,7 +37,8 @@ int main(){
     cout << "Archivo encontrado" << endl;  
     Datos.LeerArchivo(sNombreArchivo);
     
-    //C.setDatos(Archivo.getDatos());
+    //controlador.setDatos(Datos.getDatos());
+
 
 
 
