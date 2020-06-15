@@ -2,7 +2,7 @@
 #define CONTROLADOR_H
 #include <iostream>
 #include <vector>
-#include <boost/algorithm/string.hpp>
+//#include <boost/algorithm/string.hpp>
 using namespace std;
 
 class Controlador{
@@ -27,19 +27,36 @@ class Controlador{
             }        
         }
 
+        
+        void split(const string& s, char c,
+            vector<string>& v) {
+            string::size_type i = 0;
+            string::size_type j = s.find(c);
+            while (j != string::npos) {
+                v.push_back(s.substr(i, j-i));
+                i = ++j;
+                j = s.find(c, j);
+
+                if (j == string::npos)
+                    v.push_back(s.substr(i, s.length()));
+            }
+        }
+
         bool Instruccion(char opcion,int NumInstruccion){
             switch (opcion)
             {
             case 'P':
                 vector<string> DigitosSeparados;
-                boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
+                //boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
+                split(vDatos[NumInstruccion],' ',DigitosSeparados);
                 int N = atoi(DigitosSeparados[1].c_str());
                 int P = atoi(DigitosSeparados[2].c_str());
                 return Pnp(N,P);
                 break;
             case 'A':
                 vector<string> DigitosSeparados;
-                boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
+                //boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
+                split(vDatos[NumInstruccion],' ',DigitosSeparados);
                 int D = atoi(DigitosSeparados[1].c_str());
                 int P = atoi(DigitosSeparados[2].c_str());
                 int M = atoi(DigitosSeparados[3].c_str());
@@ -47,7 +64,8 @@ class Controlador{
                 break;
             case 'L':
                 vector<string> DigitosSeparados;
-                boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
+                //boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
+                split(vDatos[NumInstruccion],' ',DigitosSeparados);
                 int P = atoi(DigitosSeparados[1].c_str());
                 return Lp(P);
                 break;
