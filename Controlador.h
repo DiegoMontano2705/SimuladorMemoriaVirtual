@@ -36,37 +36,37 @@ class Controlador{
                 v.push_back(s.substr(i, j-i));
                 i = ++j;
                 j = s.find(c, j);
-
                 if (j == string::npos)
                     v.push_back(s.substr(i, s.length()));
             }
         }
 
         bool Instruccion(char opcion,int NumInstruccion){
+            vector<string> DigitosSeparados;
+            int D,N,P,M;
+
             switch (opcion)
             {
             case 'P':
-                vector<string> DigitosSeparados;
                 //boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
                 split(vDatos[NumInstruccion],' ',DigitosSeparados);
-                int N = atoi(DigitosSeparados[1].c_str());
-                int P = atoi(DigitosSeparados[2].c_str());
+                N = atoi(DigitosSeparados[1].c_str());
+                P = atoi(DigitosSeparados[2].c_str());
                 return Pnp(N,P);
                 break;
             case 'A':
-                vector<string> DigitosSeparados;
+
                 //boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
                 split(vDatos[NumInstruccion],' ',DigitosSeparados);
-                int D = atoi(DigitosSeparados[1].c_str());
-                int P = atoi(DigitosSeparados[2].c_str());
-                int M = atoi(DigitosSeparados[3].c_str());
+                D = atoi(DigitosSeparados[1].c_str());
+                P = atoi(DigitosSeparados[2].c_str());
+                M = atoi(DigitosSeparados[3].c_str());
                 return Adpm(D,P,M);
-                break;
+            break;
             case 'L':
-                vector<string> DigitosSeparados;
                 //boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
                 split(vDatos[NumInstruccion],' ',DigitosSeparados);
-                int P = atoi(DigitosSeparados[1].c_str());
+                P = atoi(DigitosSeparados[1].c_str());
                 return Lp(P);
                 break;
             case 'C':
