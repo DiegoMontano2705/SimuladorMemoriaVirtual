@@ -41,32 +41,64 @@ class Controlador{
             }
         }
 
+        vector<int> leerInstruccion(string s, int params){
+            vector<int> parametros;
+            string subs;
+            string temp;
+            int iPos = 0;
+            int ePos = 0;
+            
+            subs = s.substr(1);
+            
+            for(int i = 0; i<params; i++){
+                // Primer digito
+                iPos = subs.find_first_not_of(' ');
+                // Quita espacios
+                subs = subs.substr(iPos);
+                // Final del numero
+                ePos = subs.find_first_of(' ');
+                // Guardar substring
+                cout << "Check" << endl;
+                temp = subs.substr(0,ePos);
+                // Meter a parametros
+                parametros.push_back(stoi(temp));
+                // Quita numero
+                if(ePos != -1){
+                    subs = subs.substr(ePos);
+                }
+            }
+            
+            return parametros;
+        }
+
         bool Instruccion(char opcion,int NumInstruccion){
             vector<string> DigitosSeparados;
+            vector<int> params;
             int D,N,P,M;
 
             switch (opcion)
             {
             case 'P':
+                params.clear();
                 //boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
-                split(vDatos[NumInstruccion],' ',DigitosSeparados);
-                N = atoi(DigitosSeparados[1].c_str());
-                P = atoi(DigitosSeparados[2].c_str());
+                params = leerInstruccion(vDatos[NumInstruccion],2);
+                N = params[0];
+                P = params[1];
                 return Pnp(N,P);
                 break;
             case 'A':
-
+                params.clear();
                 //boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
-                split(vDatos[NumInstruccion],' ',DigitosSeparados);
-                D = atoi(DigitosSeparados[1].c_str());
-                P = atoi(DigitosSeparados[2].c_str());
-                M = atoi(DigitosSeparados[3].c_str());
+                params = leerInstruccion(vDatos[NumInstruccion],3);
+                D = params[0];
+                P = params[1];
+                M = params[2];
                 return Adpm(D,P,M);
             break;
             case 'L':
                 //boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
-                split(vDatos[NumInstruccion],' ',DigitosSeparados);
-                P = atoi(DigitosSeparados[1].c_str());
+                params = leerInstruccion(vDatos[NumInstruccion],1);
+                P = params[0];
                 return Lp(P);
                 break;
             case 'C':
