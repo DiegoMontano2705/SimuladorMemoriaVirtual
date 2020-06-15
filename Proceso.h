@@ -13,7 +13,7 @@ private:
 public:
     Proceso() {}
     //Constructor
-    Proceso(int bytes, int paginas, double tiempoInicial) {
+    Proceso(int pbytes, int ppaginas, double tiempoInicial) {
         bytes = bytes;
         paginas = paginas;
         tInicio = tiempoInicial;

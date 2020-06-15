@@ -317,9 +317,9 @@ class Controlador{
             "d" desde 0 a dir max virtual de proceso.*/
             
             if (isFifo) {
-                if(!historiaProceso_FIFO.count(p)){
+                if(historiaProceso_FIFO.count(p)){
 
-                    if(d > historiaProceso_FIFO[p].getBytes() || d < 0){
+                    if(d < historiaProceso_FIFO[p].getBytes() || d > 0){
                         
                             int paginaNum = d / tamanoPagina;
 
@@ -341,9 +341,9 @@ class Controlador{
                     }
                 }
             } else {
-                if(!historiaProceso_LRU.count(p)){
+                if(historiaProceso_LRU.count(p)){
 
-                    if(d > historiaProceso_LRU[p].getBytes() || d < 0){
+                    if(d < historiaProceso_LRU[p].getBytes() || d > 0){
                         
                             int paginaNum = d / tamanoPagina;
 

@@ -22,8 +22,12 @@ public:
 
     void erase(Pagina pagina){
         for(int i=queuePagina.size()-1; i>=0; i--){
-            if(queuePagina.at(i).get_id()==pagina.get_id()){
+            if(i!=0){
+                if(queuePagina.at(i).get_id()==pagina.get_id()){
                 queuePagina.erase(queuePagina.begin()+1);
+            }
+            }else{
+                queuePagina.erase(queuePagina.begin());
             }
         }
     }
