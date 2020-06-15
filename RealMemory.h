@@ -21,11 +21,11 @@ public:
     RealMemory :: RealMemory(){};
     
     bool RealMemory :: insert(Pagina pagina, TablaPaginacion &tablaPaginacion){
-        for (int iCont=0; iCont<2048; i++) {
-            if (!m[iCont].first) {
-                m[iCont].first = true;
-                m[iCont].second = pagina;
-                tablaPaginacion.AgregarRealMemory(pagina, iCont);
+        for (int i=0; i<2048; i++) {
+            if (!m[i].first) {
+                m[i].first = true;
+                m[i].second = pagina;
+                tablaPaginacion.AgregarRealMemory(pagina, i);
                 return true;
             }
         }
