@@ -6,6 +6,8 @@ class Pagina{
     int id, iNumPagina;
     public:
 
+    Pagina(){}
+
     Pagina(int id, int iNumPagina){
         this->id=id;
         this->iNumPagina=iNumPagina;

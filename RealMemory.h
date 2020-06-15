@@ -20,7 +20,9 @@ class RealMemory{
 private:
     pair<bool,Pagina> m[2048];
 public:
-    RealMemory(){};
+    RealMemory(){
+        
+    }
     
     bool agregar(Pagina pagina, TablaPaginacion &tablaPaginacion){
         for (int i=0; i<2048; i++) {
