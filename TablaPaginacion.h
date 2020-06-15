@@ -39,7 +39,7 @@ class TablaPaginacion{
     }
 
     bool eliminarProceso(int id){
-        tabla.erase(id);
+        return tabla.erase(id);
     }
 
 
