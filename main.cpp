@@ -37,8 +37,8 @@ int main(){
     cout << "Archivo encontrado" << endl;  
     Datos.LeerArchivo(sNombreArchivo);
     
-    //controlador.setDatos(Datos.getDatos());
-
+    controlador.setDatos(Datos.getDatos());
+    controlador.IniciarSimulador();
 
 
 
