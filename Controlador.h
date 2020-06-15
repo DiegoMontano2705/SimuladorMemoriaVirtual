@@ -2,22 +2,137 @@
 #define CONTROLADOR_H
 #include <iostream>
 #include <vector>
-//#include <boost/algorithm/string.hpp>
+#include <map>
+#include "RealMemory.h"
+#include "VirtualMemory.h"
+#include "Status.h"
+#include "Proceso.h"
+#include "TablaPaginacion.h"
+#include "Queue.h" 
 using namespace std;
 
 class Controlador{
 
     private:
         vector<string> vDatos;
+        RealMemory RM;
+        VirtualMemory VM;
+        TablaPaginacion TP;
+        map<int, Proceso> historiaProceso;
+        int totalSwaps;
+        double currentTime;
+        double d_load_page_memory_initially = 1.0, d_swap = 1.0, d_access_page_in_real_memory = 0.1,
+        d_free_page_real_memory = 0.1, d_free_page_secondary_memory = 0.1;
+        //Queue rq
 
     public:
         
         Controlador(){
         }
+        Controlador(Queue *rq) {
+            this->RM = RealMemory();
+            this->VM = VirtualMemory();
+            this->TP = TablaPaginacion();
+            this->historiaProceso = map<int, Proceso>();
+            this->currentTime = 0.0;
+            this->totalSwaps = 0;
+            //this->rq = rq;
+            
+        }
 
         void setDatos(vector<string> vDatos){
             this->vDatos = vDatos;
         }
+
+
+        Status reporteSalida(){
+            Status status;
+            status.agregarPrint("Reporte de Salida");
+            status.agregarPrint("Turn around de procesos:");
+
+            double turnaroundPromedio = 0;
+
+            for(auto it = historiaProceso.begin(); it != historiaProceso.end(); it++) {
+                Proceso &p = it->second;
+                if (!p.checkFinalizado()) borrarProceso(it->first);
+                status.agregarPrint("El turn around del proceso " + to_string(it->first) + " es " + to_string(p.getTurnAround()) + " segundos");
+                turnaroundPromedio += p.getTurnAround();
+            }
+            turnaroundPromedio /= (double)historiaProceso.size();
+
+            for(auto it = historiaProceso.begin(); it != historiaProceso.end(); it++) {
+                Proceso &p = it->second;
+                status.agregarPrint("Los page faults del proceso " + to_string(it->first) + " son " + to_string(p.getFallos()));
+            }
+            status.agregarPrint("Tiempo Turnaround Promedio: " + to_string(turnaroundPromedio));
+
+            status.agregarPrint("Total de swap in y out: " + to_string(totalSwaps));
+
+            ResetData();
+            return status;
+        }
+
+
+        Status borrarProceso(int pId) {
+            Status status;
+            status.agregarPrint("Liberar los marcos de pagina ocupados por el proceso " + to_string(pId));
+            vector<int> realMemoryFrames, secondaryMemoryFrames;
+            Proceso pcs = getProceso(pId);
+            for (int i = 0; i < pcs.getPaginas(); i++) {
+                Pagina currentPage(pId, i);
+                if (TP.WhereAmI(currentPage)) {
+                    realMemoryFrames.push_back(TP.getPosicionRealMemory(currentPage));
+                    RM.borrar(currentPage, TP);
+                    currentTime += d_free_page_real_memory;
+                } else {
+                    secondaryMemoryFrames.push_back(TP.getPosicionVirtualMemory(currentPage));
+                    VM.borrar(currentPage, TP);
+                    currentTime += d_free_page_secondary_memory;
+                }
+                rq->erase(currentPage);
+            }
+
+            if(realMemoryFrames.size() > 0){
+                string realMemoryFramesString = "";
+                realMemoryFramesString += "Se libreraron los marcos de pagina de memoria real: [";
+
+                for(int frame : realMemoryFrames) realMemoryFramesString += to_string(frame) + ", ";
+
+                realMemoryFramesString.pop_back(); realMemoryFramesString.pop_back(); /
+
+                realMemoryFramesString += "]";
+                status.agregarPrint(realMemoryFramesString);
+            }
+
+            if(secondaryMemoryFrames.size() > 0){
+                string secondaryMemoryFramesString = "";
+                secondaryMemoryFramesString += "Se libreraron los marcos de pagina del area de swapping: [";
+
+                for(int frame : secondaryMemoryFrames) secondaryMemoryFramesString += to_string(frame) + ", ";
+
+                secondaryMemoryFramesString.pop_back(); secondaryMemoryFramesString.pop_back(); /
+
+                secondaryMemoryFramesString += "]";
+
+                status.agregarPrint(secondaryMemoryFramesString);
+        }
+
+        this->TP.eliminarProceso(pId);
+        endProceso(pId);
+        return status;
+    }
+
+        void ResetData(){
+            RM = RealMemory();
+            VM = VirtualMemory();
+            TP = TablaPaginacion();
+            historiaProceso = map<int, Proceso>();
+            currentTime = 0.0;
+            totalSwaps = 0;
+            //rq->reset();
+        }
+
+    
 
         void IniciarSimulador(){
             string sIntruccion;
@@ -25,20 +140,6 @@ class Controlador{
                 sIntruccion = vDatos[i];
                 Instruccion(sIntruccion[0],i);
             }        
-        }
-
-        
-        void split(const string& s, char c,
-            vector<string>& v) {
-            string::size_type i = 0;
-            string::size_type j = s.find(c);
-            while (j != string::npos) {
-                v.push_back(s.substr(i, j-i));
-                i = ++j;
-                j = s.find(c, j);
-                if (j == string::npos)
-                    v.push_back(s.substr(i, s.length()));
-            }
         }
 
         vector<int> leerInstruccion(string s, int params){
@@ -80,7 +181,6 @@ class Controlador{
             {
             case 'P':
                 params.clear();
-                //boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
                 params = leerInstruccion(vDatos[NumInstruccion],2);
                 N = params[0];
                 P = params[1];
@@ -88,7 +188,6 @@ class Controlador{
                 break;
             case 'A':
                 params.clear();
-                //boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
                 params = leerInstruccion(vDatos[NumInstruccion],3);
                 D = params[0];
                 P = params[1];
@@ -96,7 +195,7 @@ class Controlador{
                 return Adpm(D,P,M);
             break;
             case 'L':
-                //boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
+                params.clear();
                 params = leerInstruccion(vDatos[NumInstruccion],1);
                 P = params[0];
                 return Lp(P);
