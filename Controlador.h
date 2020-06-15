@@ -33,22 +33,22 @@ class Controlador{
             case 'P':
                 vector<string> DigitosSeparados;
                 boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
-                int N = atoi(DigitosSeparados[1]);
-                int P = atoi(DigitosSeparados[2]);
+                int N = atoi(DigitosSeparados[1].c_str());
+                int P = atoi(DigitosSeparados[2].c_str());
                 return Pnp(N,P);
                 break;
             case 'A':
                 vector<string> DigitosSeparados;
                 boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
-                int D = atoi(DigitosSeparados[1]);
-                int P = atoi(DigitosSeparados[2]);
-                int M = atoi(DigitosSeparados[3]);
+                int D = atoi(DigitosSeparados[1].c_str());
+                int P = atoi(DigitosSeparados[2].c_str());
+                int M = atoi(DigitosSeparados[3].c_str());
                 return Adpm(D,P,M);
                 break;
             case 'L':
                 vector<string> DigitosSeparados;
                 boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
-                int P = atoi(DigitosSeparados[1]);
+                int P = atoi(DigitosSeparados[1].c_str());
                 return Lp(P);
                 break;
             case 'C':
