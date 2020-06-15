@@ -17,10 +17,12 @@
 using namespace std;
 
 class RealMemory{
+private:
+    pair<bool,Pagina> m[2048];
 public:
-    RealMemory :: RealMemory(){};
+    RealMemory(){};
     
-    bool RealMemory :: insert(Pagina pagina, TablaPaginacion &tablaPaginacion){
+    bool agregar(Pagina pagina, TablaPaginacion &tablaPaginacion){
         for (int i=0; i<2048; i++) {
             if (!m[i].first) {
                 m[i].first = true;
@@ -32,16 +34,10 @@ public:
         return false;
     }
     
-    void RealMemory :: erase(Pagina pagina, TablaPaginacion &tablaPaginacion){
+    void borrar(Pagina pagina, TablaPaginacion &tablaPaginacion){
         m[tablaPaginacion.getPosicionRealMemory(pagina)].first = false;
     }
-    
-    RealMemory();
-    bool insert(Pagina pagina, TablaPaginacion &tablaPaginacion);
-    void erase(Pagina pagina, TablaPaginacion &tablaPaginacion);
-    
-private:
-    pair<bool,Pagina> m[2048];
+
 };
 
 #endif /* RealMemory_h */
