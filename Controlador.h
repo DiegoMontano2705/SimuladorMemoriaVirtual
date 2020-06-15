@@ -1,28 +1,55 @@
 #ifndef CONTROLADOR_H
 #define CONTROLADOR_H
 #include <iostream>
+#include <vector>
+#include <boost/algorithm/string.hpp>
 using namespace std;
 
 class Controlador{
 
     private:
+        vector<string> vDatos;
 
     public:
         
         Controlador(){
         }
 
-        bool Instruccion(char opcion){
+        void setDatos(vector<string> vDatos){
+            this->vDatos = vDatos;
+        }
+
+        void IniciarSimulador(){
+            string sIntruccion;
+            for(int i = 0; i < vDatos.size(); i++){
+                sIntruccion = vDatos[i];
+                Instruccion(sIntruccion[0],i);
+            }        
+        }
+
+        bool Instruccion(char opcion,int NumInstruccion){
             switch (opcion)
             {
             case 'P':
-                return Pnp(0,0);
+                vector<string> DigitosSeparados;
+                boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
+                int N = atoi(DigitosSeparados[1]);
+                int P = atoi(DigitosSeparados[2]);
+                return Pnp(N,P);
                 break;
             case 'A':
-                return Adpm(0,0);
+                vector<string> DigitosSeparados;
+                boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
+                int D = atoi(DigitosSeparados[1]);
+                int P = atoi(DigitosSeparados[2]);
+                int M = atoi(DigitosSeparados[3]);
+                return Adpm(D,P,M);
                 break;
             case 'L':
-                return Lp(0);
+                vector<string> DigitosSeparados;
+                boost::split(DigitosSeparados,vDatos[NumInstruccion],boost::is_any_of(" "));
+                int P = atoi(DigitosSeparados[1]);
+                return Lp(P);
                 break;
             case 'C':
                 C();
@@ -45,7 +72,7 @@ class Controlador{
             return true;
         }
 
-        bool Adpm(int d, int p){
+        bool Adpm(int d, int p, int m){
             /*Solicitud para accesar la dirección virtual:
             "d" del proceso "p"
             "d" desde 0 a dir max virtual de proceso.
