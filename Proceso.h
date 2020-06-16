@@ -14,8 +14,8 @@ public:
     Proceso() {}
     //Constructor
     Proceso(int pbytes, int ppaginas, double tiempoInicial) {
-        bytes = bytes;
-        paginas = paginas;
+        bytes = pbytes;
+        paginas = ppaginas;
         tInicio = tiempoInicial;
         tFinal = 0;
         fallosDePagina = 0;

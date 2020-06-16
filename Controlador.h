@@ -435,7 +435,7 @@ void C(string s){
 }
 
 void F(){
-    
+    if(historiaProceso_FIFO.size()>0 && historiaProceso_LRU.size()>0){
         /*turnaround time / turnaround promedio / fallos de página / # total de operaciones swap.*/
          
          cout << "Turn around de procesos con FIFO:" << endl;
@@ -484,8 +484,9 @@ void F(){
         cout << "Promedio Turnaround Time: " << to_string(PromedioTurnAround_LRU) << endl;
 
          cout << "Cantidad de operaciones Swap In Swap Ou: " << to_string(totalSwaps_LRU) << "\n\n" <<endl;
-    
+    }
 }
 
 };
-#endif //Controlador.h
+
+#endif
